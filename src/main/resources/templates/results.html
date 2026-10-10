@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results - VoteSmart</title>
+    <link rel="stylesheet" th:href="@{/portal.css}">
+</head>
+<body>
+<header class="p-header">
+    <div class="p-logo">🗳️ VoteSmart</div>
+    <div class="p-tag">Election Results</div>
+</header>
+<main class="p-main">
+    <section class="p-card">
+        <div th:if="${!over}">
+            <div class="p-icon">⏳</div>
+            <h1>Results not available yet</h1>
+            <p>Results appear after voting ends.</p>
+        </div>
+        <div th:if="${over}">
+            <div class="p-icon">🏆</div>
+            <h1>Winner: <span th:text="${winner.name}"></span></h1>
+            <p>Total votes: <span th:text="${total}"></span></p>
+            <div class="p-candidate" th:each="c : ${candidates}">
+                <span th:text="${c.name}" style="flex:1"></span>
+                <strong th:text="${c.votes} + ' votes'"></strong>
+            </div>
+        </div>
+        <a class="p-btn" href="/">← Back to Home</a>
+    </section>
+</main>
+<footer class="p-footer">© 2026 NSSCE Online Voting System</footer>
+</body>
+</html>

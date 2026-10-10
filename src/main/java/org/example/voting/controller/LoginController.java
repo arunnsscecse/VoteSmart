@@ -16,6 +16,11 @@ public class LoginController {
     @GetMapping("/voter-login")
     public String voterLogin() { return "voter-login"; }
 
+    @GetMapping("/view-result")
+    public String viewResult() {
+        return "redirect:/results";
+    }
+
     @PostMapping("/voter-login")
     public String doLogin(@RequestParam String voterId, HttpSession session, Model model) {
         try {

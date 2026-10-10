@@ -1,5 +1,5 @@
 package org.example.voting.controller;
-
+import java.util.*;
 import jakarta.servlet.http.HttpSession;
 import org.example.voting.*;
 import org.springframework.stereotype.Controller;
@@ -35,6 +35,22 @@ public class VotingController {
         session.setAttribute("voterName", voter.getName());
         session.removeAttribute("voter");
         return "redirect:/thank-you";
+    }
+
+    @GetMapping("/results")
+    public String results(Model model) {
+        boolean over = VotingData.isElectionOver();
+        model.addAttribute("over", over);
+        if (over) {
+            List<Candidate> sorted = new ArrayList<>(VotingData.candidates);
+            sorted.sort((a, b) -> b.getVotes() - a.getVotes());
+            int total = 0;
+            for (Candidate c : sorted) total += c.getVotes();
+            model.addAttribute("candidates", sorted);
+            model.addAttribute("total", total);
+            model.addAttribute("winner", sorted.get(0));
+        }
+        return "results";
     }
 
     @GetMapping("/thank-you")

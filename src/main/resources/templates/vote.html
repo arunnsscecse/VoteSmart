@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vote - VoteSmart</title>
+    <link rel="stylesheet" th:href="@{/portal.css}">
+</head>
+<body>
+<header class="p-header">
+    <div class="p-logo">🗳️ VoteSmart</div>
+    <div class="p-tag">👤 <span th:text="${voter.name}"></span></div>
+</header>
+
+<main class="p-main">
+    <section class="p-card">
+        <h1>Welcome, <span th:text="${voter.name}"></span></h1>
+        <p>Select your candidate and submit your vote.</p>
+        <form method="post" action="/vote">
+            <label class="p-candidate" th:each="c : ${candidates}">
+                <input type="radio" name="candidateId" th:value="${c.id}" required>
+                <span th:text="${c.name}"></span>
+            </label>
+            <button type="submit" class="p-btn">Submit Vote →</button>
+        </form>
+    </section>
+</main>
+
+<footer class="p-footer">© 2026 NSSCE Online Voting System • Secure • Simple • Transparent</footer>
+</body>
+</html>

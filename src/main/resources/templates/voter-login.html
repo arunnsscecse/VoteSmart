@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login - VoteSmart</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+    <style>
+        .voter-card {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            padding: 42px 35px;
+            border-radius: 24px;
+            text-align: center;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .voter-card h1 {
+            font-size: 34px;
+            margin: 15px 0;
+        }
+
+        .voter-card p {
+            color: #dbeafe;
+            margin-bottom: 28px;
+        }
+
+        .voter-card input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .voter-card input:focus {
+            border-color: #50f4e6;
+            box-shadow: 0 0 0 3px rgba(80,244,230,0.2);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            color: #06234c;
+            background: linear-gradient(100deg, #50f4e6, #4da8ff);
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #dbeafe;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo">🗳️ VoteSmart</div>
+    <div class="nav-tag">Voter Portal</div>
+</header>
+
+<main class="hero">
+    <section class="voter-card">
+        <div style="font-size:45px;">👤</div>
+
+        <h1>Voter Login</h1>
+        <p>Enter your Voter ID to continue.</p>
+
+        <form method="post" action="/voter-login">
+            <input
+                    type="text"
+                    name="voterId"
+                    placeholder="Enter your Voter ID (e.g. 01)">
+            <p th:if="${error}" th:text="${error}" style="color:red"></p>
+            <button type="submit" class="submit-button">
+                Login →
+            </button>
+        </form>
+
+        <a class="back-link" th:href="@{/login}">
+            ← Choose Login Type
+        </a>
+    </section>
+</main>
+
+<footer>© 2026 NSSCE Online Voting System</footer>
+
+
+</body><style>
+    html body {
+        min-height: 100vh;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+    }
+    html body > header { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
+    html body > main   { flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; }
+    html body > footer { width: 100%; text-align: center; padding: 16px; }
+</style>
+</html>

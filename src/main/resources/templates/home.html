@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Voting System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background:
+                    radial-gradient(circle at 15% 20%,
+                    rgba(0, 225, 255, 0.22), transparent 35%),
+                    radial-gradient(circle at 85% 80%,
+                    rgba(145, 70, 255, 0.30), transparent 35%),
+                    linear-gradient(135deg, #06152f, #073b75, #101b46);
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Navigation bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 7%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #00e5ff, #4f8cff);
+            border-radius: 14px;
+            font-size: 27px;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            color: #9edcff;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .status {
+            padding: 10px 17px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #c9f7ff;
+            font-size: 13px;
+        }
+
+        /* Main homepage layout */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 55px 10%;
+        }
+
+        .hero {
+            flex: 1;
+            max-width: 570px;
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 9px 15px;
+            margin-bottom: 25px;
+            color: #7cecff;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            border-radius: 30px;
+            background: rgba(0, 229, 255, 0.08);
+            font-size: 12px;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 5vw, 62px);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(90deg, #35e7ff, #a4a4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 480px;
+            color: #c4d6ef;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 27px;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .feature {
+            padding: 11px 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: #e2f5ff;
+            font-size: 13px;
+        }
+
+        /* Welcome card */
+        .welcome-card {
+            width: 410px;
+            max-width: 100%;
+            flex-shrink: 0;
+            padding: 42px 32px;
+            text-align: center;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.23);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(18px);
+        }
+
+        .vote-symbol {
+            font-size: 65px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 8px 15px rgba(0, 229, 255, 0.2));
+        }
+
+        .welcome-card h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-card p {
+            color: #d1e2f5;
+            line-height: 1.7;
+            font-size: 15px;
+            margin-bottom: 27px;
+        }
+
+        .start-button {
+            display: block;
+            width: 100%;
+            padding: 17px 20px;
+            border-radius: 13px;
+            background: linear-gradient(100deg, #00c9ed, #507cff);
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 8px 28px rgba(0, 201, 237, 0.25);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 201, 237, 0.4);
+        }
+
+        .secure-note {
+            margin-top: 20px;
+            color: #b8d5ed;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            color: #a8c0dc;
+            font-size: 12px;
+        }
+
+        footer span {
+            color: #70eaff;
+        }
+
+        /* Mobile and tablet screens */
+        @media (max-width: 850px) {
+            header {
+                padding: 20px 6%;
+            }
+
+            .status {
+                display: none;
+            }
+
+            main {
+                flex-direction: column;
+                text-align: center;
+                padding: 45px 6%;
+                gap: 40px;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features {
+                justify-content: center;
+            }
+
+            .welcome-card {
+                width: 100%;
+                max-width: 430px;
+            }
+
+            footer {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <div class="brand-icon">🗳️</div>
+        <div>
+            <h2>VoteSmart</h2>
+            <p>DIGITAL VOTING SYSTEM</p>
+        </div>
+    </div>
+
+    <div class="status">● Your Voice Matters</div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="tagline">YOUR VOICE, YOUR CHOICE</div>
+
+        <h1>
+            Digital
+            <span>Voting System</span>
+        </h1>
+
+        <p class="hero-description">
+            Make your choice count. Participate in a simple,
+            convenient and transparent voting experience.
+            Every vote represents a voice.
+        </p>
+
+        <div class="features">
+            <div class="feature">🔒 Secure Access</div>
+            <div class="feature">⚡ Easy to Use</div>
+            <div class="feature">✓ Simple Voting</div>
+        </div>
+    </section>
+
+    <section class="welcome-card">
+        <div class="vote-symbol">🗳️</div>
+
+        <h2>Welcome to Online Voting</h2>
+
+        <p>
+            Ready to make a difference?
+            Click below to enter the voting portal
+            and choose your login type.
+        </p>
+
+        <!-- Opens the existing login portal -->
+        <a href="/login" class="start-button">
+            Start Voting &nbsp; →
+        </a>
+
+        <div class="secure-note">
+            🔐 Secure • Simple • Transparent
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 <span>VoteSmart</span> | NSSCE Online Voting System</p>
+    <p>Secure • Simple • Transparent</p>
+</footer>
+
+</body>
+</html>

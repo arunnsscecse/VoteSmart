@@ -38,21 +38,20 @@ public class VotingController {
     }
 
     @GetMapping("/results")
-    public String results(Model model) {
-        boolean over = VotingData.isElectionOver();
-        model.addAttribute("over", over);
-        if (over) {
-            List<Candidate> sorted = new ArrayList<>(VotingData.candidates);
-            sorted.sort((a, b) -> b.getVotes() - a.getVotes());
-            int total = 0;
-            for (Candidate c : sorted) total += c.getVotes();
-            model.addAttribute("candidates", sorted);
-            model.addAttribute("total", total);
-            model.addAttribute("winner", sorted.get(0));
+    public String results(Model model){
+            boolean over = VotingData.isElectionOver();
+            model.addAttribute("over", over);
+            if (over) {
+                List<Candidate> sorted = new ArrayList<>(VotingData.candidates);
+                sorted.sort((a, b) -> b.getVotes() - a.getVotes());
+                int total = 0;
+                for (Candidate c : sorted) total += c.getVotes();
+                model.addAttribute("candidates", sorted);
+                model.addAttribute("total", total);
+                model.addAttribute("winner", sorted.get(0));
+            }
+            return "results";
         }
-        return "results";
-    }
-
     @GetMapping("/thank-you")
     public String thankYou(HttpSession session, Model model) {
         String name = (String) session.getAttribute("voterName");

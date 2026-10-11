@@ -5,7 +5,6 @@ import java.util.*;
 
 public class VotingData {
 
-    // FIX 1: every item needs a comma after it, except the LAST one.
     public static List<Voter> voters = new ArrayList<>(List.of(
             new Voter(1, "AADHIL"),
             new Voter(2, "AADIDEV"),
@@ -28,7 +27,7 @@ public class VotingData {
             new Voter(19, "AMARNATH-CN"),
             new Voter(20, "AMARNATH-EMS"),
             new Voter(21, "AMRUTHA"),
-            new Voter(44, "AVANISH")   // last item: NO comma
+            new Voter(44, "AVANISH")
     ));
 
     public static List<Candidate> candidates = new ArrayList<>(List.of(
@@ -36,8 +35,7 @@ public class VotingData {
             new Candidate(2, "CICLIA-D-SURESH", 0)
     ));
 
-    // NOTE: this is set when the server STARTS, so voting closes 30 min after start.
-    public static LocalDateTime endTime = LocalDateTime.now().plusMinutes(30);
+    public static LocalDateTime endTime = LocalDateTime.now().plusSeconds(15);
 
     public static Voter findVoter(int id) {
         for (Voter v : voters) {
@@ -48,6 +46,7 @@ public class VotingData {
 
     public static boolean isElectionOver() {
         boolean allVoted = voters.stream().allMatch(Voter::hasVoted);
-        return allVoted || LocalDateTime.now().isAfter(endTime);
+        return LocalDateTime.now().isAfter(endTime) || allVoted;
     }
+
 }
